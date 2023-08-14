@@ -7,7 +7,6 @@ import { profileTabs } from "@/constants";
 import ProfileHeader from "@/components/shared/profile-header";
 
 import { fetchUser, fetchUsers } from "@/lib/actions/user.actions";
-import ThreadTab from "@/components/shared/thread-tab";
 import UserCard from "@/components/cards/user-card";
 
 const Page = async () => {
