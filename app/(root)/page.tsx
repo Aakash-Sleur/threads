@@ -1,4 +1,3 @@
-//app/page.tsx
 
 import ThreadCard from "@/components/cards/thread-card";
 import { fetchPosts } from "@/lib/actions/thread.actions"
@@ -31,6 +30,7 @@ export default async function Home() {
                     community={post.community}
                     createdAt={post.createdAt}
                     comments={post.children}
+
                   />
 
                 ))

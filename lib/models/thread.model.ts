@@ -18,10 +18,6 @@ const threadSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  heart: {
-    type: Number,
-    default: 0,
-  },
   parentId: {
     type: String,
   },
