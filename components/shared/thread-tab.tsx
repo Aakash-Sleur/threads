@@ -1,6 +1,7 @@
-import { fetchUserPosts } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
-import ThreadCard from "../cards/thread-card";
+
+import ThreadCard from "@/components/cards/thread-card";
+import { fetchUserPosts } from "@/lib/actions/user.actions";
 import { fetchCommunityPosts } from "@/lib/actions/community.actions";
 
 interface ThreadTabProps {
@@ -14,6 +15,7 @@ const ThreadTab = async ({
     accountId,
     accountType
 }: ThreadTabProps) => {
+
     let result: any;
 
     if (accountType === "Community") {
@@ -23,6 +25,7 @@ const ThreadTab = async ({
     }
 
     if (!result) redirect('/')
+
     return (
         <section className="mt-9 flex flex-col gap-10">
             {result.threads.map((thread: any) => (
@@ -36,11 +39,13 @@ const ThreadTab = async ({
                         {
                             name: result.name,
                             image: result.image,
-                            id: result.id
+                            id: result.id,
+                            username: result.username
                         } : {
                             name: thread.author.name,
                             image: thread.author.image,
-                            id: thread.author.id
+                            id: thread.author.id,
+                            username: thread.author.username
                         }
                     }
                     community={thread.community}

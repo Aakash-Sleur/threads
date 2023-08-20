@@ -1,7 +1,15 @@
+
 import Link from "next/link";
 import Image from 'next/image'
-import { formatDateString } from "@/lib/utils";
 
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger
+} from "@/components/ui/tooltip";
+import ShareButton from "../buttons/share-button";
+import DeleteButton from "@/components/buttons/delete-button";
+import { formatDateString } from "@/lib/utils";
 interface ThreadCardProps {
     id: string,
     currentUserId: string,
@@ -11,6 +19,7 @@ interface ThreadCardProps {
         name: string;
         image: string;
         id: string;
+        username: string;
     },
     community: {
         id: string;
@@ -36,8 +45,10 @@ const ThreadCard = ({
     createdAt,
     comments,
     isComment,
+
 }: ThreadCardProps) => {
 
+    const time = formatDateString(createdAt, "thread_header")
 
     return (
         <article className={`flex flex-col w-full rounded-xl p-7 ${isComment ? 'px-0 xs:px-7' : 'bg-dark-2'}`}>
@@ -47,7 +58,7 @@ const ThreadCard = ({
                         <Link href={`profile/${author.id}`} className="relative h-11 w-11">
                             <Image
                                 src={author.image}
-                                alt="profile image"
+                                alt={`Profile picture of ${author.name}`}
                                 fill
                                 className="cursor-pointer rounded-full"
                             />
@@ -56,47 +67,90 @@ const ThreadCard = ({
                     </div>
 
                     <div className="flex w-full flex-col">
-                        <Link href={`profile/${author.id}`} className="w-fit">
-                            <h4 className="cursor-pointer text-base-semibold text-light-1">
-                                {author.name}
-                            </h4>
-                        </Link>
+                        <div className="flex items-center gap-x-3 w-fit">
+                            <Link href={`profile/${author.id}`} className="flex items-center gap-x-3">
+                                <h4 className="text-base-semibold text-light-1 hover:underline capitalize">
+                                    {author.name}
+                                </h4>
+                                <p className="cursor-pointer text-gray-1 small-medium">
+                                    @{author.username}
+                                </p>
+                            </Link>
+                            <time dateTime={time} className="subtle-medium text-gray-1">
+                                · {time}
+                            </time>
+                        </div>
                         <p className="mt-2 text-small-regular text-light-2">{content}</p>
                         <div className={`${isComment && "mt-10"} mt-2 flex flex-col gap-3`}>
-                            <div className="flex items-center gap-3.5">
-                                <Image
-                                    src={"/assets/heart-gray.svg"}
-                                    height={28}
-                                    width={28}
-                                    alt="heart"
-                                    className="cursor-pointer object-contain"
-                                />
-                                <Link href={`/thread/${id}`}>
-                                    <Image
-                                        src={'/assets/reply.svg'}
-                                        height={28}
-                                        width={28}
-                                        alt="reply"
-                                        className="cursor-pointer object-contain"
-                                    />
-                                </Link>
+                            <nav className="flex items-center gap-3.5">
+                                <Tooltip>
+                                    <TooltipTrigger>
+                                        <Image
+                                            src={"/assets/heart-gray.svg"}
+                                            height={28}
+                                            width={28}
+                                            alt="heart"
+                                            className="cursor-pointer object-contain"
+                                        />
+                                    </TooltipTrigger>
+                                    <TooltipContent side="bottom">Heart</TooltipContent>
+                                </Tooltip>
+                                <Tooltip>
+                                    <TooltipTrigger>
+                                        <Link href={`/thread/${id}`}>
+                                            <Image
+                                                src={'/assets/reply.svg'}
+                                                height={28}
+                                                width={28}
+                                                alt="reply"
+                                                className="cursor-pointer object-contain"
+                                            />
+                                        </Link>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="bottom">
+                                        Reply
+                                    </TooltipContent>
+                                </Tooltip>
 
-                                <Image
-                                    src={'/assets/repost.svg'}
-                                    height={28}
-                                    width={28}
-                                    alt="repost"
-                                    className="cursor-pointer object-contain"
-                                />
+                                <Tooltip>
+                                    <TooltipTrigger>
+                                        <Image
+                                            src={'/assets/repost.svg'}
+                                            height={28}
+                                            width={28}
+                                            alt="repost"
+                                            className="cursor-pointer object-contain"
+                                        />
+                                    </TooltipTrigger>
+                                    <TooltipContent side="bottom">
+                                        Repost
+                                    </TooltipContent>
+                                </Tooltip>
 
-                                <Image
-                                    src={'/assets/share.svg'}
-                                    height={28}
-                                    width={28}
-                                    alt="share"
-                                    className="cursor-pointer object-contain"
-                                />
-                            </div>
+                                <Tooltip>
+                                    <TooltipTrigger>
+                                        <ShareButton id={id.toString()} />
+                                    </TooltipTrigger>
+                                    <TooltipContent side="bottom">
+                                        Share
+                                    </TooltipContent>
+                                </Tooltip>
+
+                                {
+                                    currentUserId === author.id && (
+                                        <Tooltip>
+                                            <TooltipTrigger>
+                                                <DeleteButton id={id.toString()} />
+                                            </TooltipTrigger>
+                                            <TooltipContent side="bottom">
+                                                Delete
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    )
+
+                                }
+
+                            </nav>
                             {isComment && comments.length > 0 && (
                                 <Link href={`thread/${id}`}>
                                     <p className="mt-2 text-subtle-medium text-gray-1">
@@ -141,7 +195,7 @@ const ThreadCard = ({
                     </p>
                     <Image
                         src={community.image}
-                        alt={community.name}
+                        alt={`Community profile picture of ${community.name}`}
                         width={14}
                         height={14}
                         className="ml-1 rounded-full object-cover"

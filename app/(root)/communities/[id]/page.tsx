@@ -2,11 +2,16 @@ import Image from "next/image";
 import { currentUser } from "@clerk/nextjs";
 import { communityTabs } from "@/constants";
 
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger
+} from "@/components/ui/tabs";
 import ProfileHeader from "@/components/shared/profile-header";
 import ThreadTab from "@/components/shared/thread-tab";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { fetchCommunityDetails } from "@/lib/actions/community.actions";
 import UserCard from "@/components/cards/user-card";
+import { fetchCommunityDetails } from "@/lib/actions/community.actions";
 
 const Page = async ({ params }: { params: { id: string } }) => {
     const user = await currentUser();

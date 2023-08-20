@@ -1,7 +1,8 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import { Button } from "../ui/button"
+
+import { Button } from "@/components/ui/button"
 
 interface PaginationProps {
     pageNumber: number;

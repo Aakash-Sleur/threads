@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useForm } from "react-hook-form";
 import { ChangeEvent, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod'
+import { usePathname, useRouter } from 'next/navigation';
 
 import {
     Form,
@@ -16,12 +17,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { UserValidation } from "@/lib/validations/user";
-import { Textarea } from '@/components//ui/textarea';
+import { Textarea } from '@/components/ui/textarea';
 import { isBase64Image } from '@/lib/utils';
 import { useUploadThing } from '@/lib/uploadthing'
+import { UserValidation } from "@/lib/validations/user";
 import { updateUser } from '@/lib/actions/user.actions';
-import { usePathname, useRouter } from 'next/navigation';
 
 interface AccountProfileProps {
     user: {
@@ -85,8 +85,8 @@ const AccountProfile = ({
         if (hasImageChanged) {
             const imgRes = await startUpload(files);
 
-            if (imgRes && imgRes[0].fileUrl) {
-                values.profile_photo = imgRes[0].fileUrl
+            if (imgRes && imgRes[0].url) {
+                values.profile_photo = imgRes[0].url
             }
         }
 

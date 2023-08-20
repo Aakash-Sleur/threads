@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 interface CommunityCardProps {
     id: string;
@@ -40,9 +40,18 @@ const CommunityCard = ({
                     </Link>
                     <p className='text-small-medium text-gray-1'>@{username}</p>
                 </div>
+                <div className="flex ml-auto gap-2">
+                    <Image
+                        src='/assets/members.svg'
+                        alt="members-icon"
+                        width={20}
+                        height={20}
+                    />
+                    <p className="text-subtle-medium text-gray-1">{members.length}</p>
+                </div>
             </div>
 
-            <p className='mt-4 text-subtle-medium text-gray-1'>{bio}</p>
+            <p className='mt-4 text-subtle-medium capitalize text-gray-1'>{bio}</p>
 
             <div className='mt-5 flex flex-wrap items-center justify-between gap-3'>
                 <Link href={`/communities/${id}`}>

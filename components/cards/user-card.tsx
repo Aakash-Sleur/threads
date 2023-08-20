@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 
 interface UserCardProps {
     id: string;
@@ -26,11 +26,11 @@ const UserCard = ({
     const isCommunity = personType === 'Community';
     return (
         <article className="user-card">
-            <div className="user-card_avatar">
+            <figure className="user-card_avatar">
                 <div className="relative h-12 w-12">
                     <Image
                         src={imgUrl}
-                        alt="user_logo"
+                        alt={`Avatar for user ${name}`}
                         fill
                         className="rounded-full object-cover"
                     />
@@ -40,7 +40,7 @@ const UserCard = ({
                     <h3 className="text-base-semibold text-light-1">{name}</h3>
                     <p className="text-small-medium text-gray-1">@{username}</p>
                 </div>
-            </div>
+            </figure>
 
             <Button
                 className="user-card_btn"

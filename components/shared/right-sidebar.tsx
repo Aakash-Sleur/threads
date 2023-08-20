@@ -1,9 +1,11 @@
-import { fetchUsers } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
-import UserCard from "../cards/user-card";
+
+import UserCard from "@/components/cards/user-card";
+import { fetchUsers } from "@/lib/actions/user.actions";
 import { fetchCommunities } from "@/lib/actions/community.actions";
 
 const RightSidebar = async () => {
+
     const user = await currentUser();
     if (!user) return null
 

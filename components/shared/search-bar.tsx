@@ -4,13 +4,14 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { Input } from "../ui/input";
+import { Input } from "@/components/ui/input";
 
 interface Props {
     routeType: string;
 }
 
 function Searchbar({ routeType }: Props) {
+
     const router = useRouter();
     const [search, setSearch] = useState("");
 

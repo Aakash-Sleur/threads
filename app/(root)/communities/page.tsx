@@ -1,11 +1,11 @@
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-import { fetchUser } from "@/lib/actions/user.actions";
-import { fetchCommunities } from "@/lib/actions/community.actions";
 import CommunityCard from "@/components/cards/community-card";
 import Searchbar from "@/components/shared/search-bar";
 import Pagination from "@/components/shared/pagination";
+import { fetchUser } from "@/lib/actions/user.actions";
+import { fetchCommunities } from "@/lib/actions/community.actions";
 
 const Page = async ({ searchParams }: {
     searchParams: { [key: string]: string | undefined }
@@ -27,7 +27,7 @@ const Page = async ({ searchParams }: {
 
             <Searchbar routeType="communities" />
 
-            <div className="mt-14 flex flex-col gap-9">
+            <div className="mt-14 grid xs:grid-cols-2  gap-9">
                 {result.communities.length === 0 ? (
                     <p className="no-result">No communities</p>
                 ) : (

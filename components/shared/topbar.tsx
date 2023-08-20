@@ -1,10 +1,10 @@
+import Link from 'next/link'
+import Image from 'next/image'
 import {
     OrganizationSwitcher,
     SignOutButton,
     SignedIn
 } from '@clerk/nextjs';
-import Image from 'next/image'
-import Link from 'next/link'
 import { dark } from '@clerk/themes'
 
 const Topbar = () => {
@@ -16,6 +16,7 @@ const Topbar = () => {
                     Threads
                 </p>
             </Link>
+
 
             <div className="flex items-center gap-1">
                 <div className="block md:hidden">

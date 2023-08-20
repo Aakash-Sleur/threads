@@ -1,8 +1,10 @@
 'use client'
 
-import * as z from 'zod'
+import * as z from "zod"
 import { useForm } from "react-hook-form";
+import { useOrganization } from "@clerk/nextjs";
 import { zodResolver } from '@hookform/resolvers/zod'
+import { usePathname, useRouter } from "next/navigation";
 
 import {
     Form,
@@ -13,26 +15,9 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
-import { Textarea } from '@/components//ui/textarea';
-
-import { usePathname, useRouter } from 'next/navigation';
-
-// import { updateUser } from '@/lib/actions/user.actions';
+import { Textarea } from "@/components//ui/textarea";
+import { createThread } from "@/lib/actions/thread.actions";
 import { ThreadValidation } from "@/lib/validations/thread";
-import { useOrganization } from '@clerk/nextjs';
-import { createThread } from '@/lib/actions/thread.actions';
-
-interface AccountProfileProps {
-    user: {
-        id: string,
-        objectId: string,
-        username: string,
-        name: string,
-        bio: string,
-        image: string;
-    };
-    btnTitle: string;
-}
 
 function PostThread({ userId }: { userId: string }) {
 
@@ -57,11 +42,8 @@ function PostThread({ userId }: { userId: string }) {
             path: pathname
         })
 
-
-
         router.push('/')
     }
-
 
     return (
         <Form {...form}>

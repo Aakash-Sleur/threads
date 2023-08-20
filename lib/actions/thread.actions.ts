@@ -1,9 +1,9 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import toast from "react-hot-toast";
 
 import { connectToDB } from "../mongoose";
-
 import User from "../models/user.model";
 import Thread from "../models/thread.model";
 import Community from "../models/community.model";
@@ -89,6 +89,7 @@ export async function createThread({
 
     revalidatePath(path);
   } catch (error: any) {
+    toast.error("Failed to create thread");
     throw new Error(`Failed to create thread: ${error.message}`);
   }
 }
@@ -169,7 +170,7 @@ export async function fetchThreadById(threadId: string) {
       .populate({
         path: "author",
         model: User,
-        select: "_id id name image",
+        select: "_id id name image username",
       }) // Populate the author field with _id and username
       .populate({
         path: "community",
@@ -182,7 +183,7 @@ export async function fetchThreadById(threadId: string) {
           {
             path: "author", // Populate the author field within children
             model: User,
-            select: "_id id name parentId image", // Select only _id and username fields of the author
+            select: "_id id name parentId image username", // Select only _id and username fields of the author
           },
           {
             path: "children", // Populate the children field within children
@@ -190,7 +191,7 @@ export async function fetchThreadById(threadId: string) {
             populate: {
               path: "author", // Populate the author field within nested children
               model: User,
-              select: "_id id name parentId image", // Select only _id and username fields of the author
+              select: "_id id name parentId image username", // Select only _id and username fields of the author
             },
           },
         ],
@@ -200,7 +201,7 @@ export async function fetchThreadById(threadId: string) {
     return thread;
   } catch (err) {
     console.error("Error while fetching thread:", err);
-    throw new Error("Unable to fetch thread");
+    toast.error("Unable to fetch thread");
   }
 }
 
@@ -217,7 +218,8 @@ export async function addCommentToThread(
     const originalThread = await Thread.findById(threadId);
 
     if (!originalThread) {
-      throw new Error("Thread not found");
+      toast.error("Thread not found");
+      return;
     }
 
     // Create the new comment thread
@@ -239,6 +241,6 @@ export async function addCommentToThread(
     revalidatePath(path);
   } catch (err) {
     console.error("Error while adding comment:", err);
-    throw new Error("Unable to add comment");
+    toast.error("Unable to add comment");
   }
 }

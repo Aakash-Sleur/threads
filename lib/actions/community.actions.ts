@@ -1,12 +1,12 @@
 "use server";
 
+import toast from "react-hot-toast";
 import { FilterQuery, SortOrder } from "mongoose";
 
-import Community from "../models/community.model";
-import Thread from "../models/thread.model";
-import User from "../models/user.model";
-
 import { connectToDB } from "../mongoose";
+import User from "@/lib/models/user.model";
+import Thread from "@/lib/models/thread.model";
+import Community from "@/lib/models/community.model";
 
 export async function createCommunity(
   id: string,
@@ -23,7 +23,7 @@ export async function createCommunity(
     const user = await User.findOne({ id: createdById });
 
     if (!user) {
-      throw new Error("User not found"); // Handle the case if the user with the id is not found
+      toast.error("User not found"); // Handle the case if the user with the id is not found
     }
 
     const newCommunity = new Community({
@@ -42,10 +42,10 @@ export async function createCommunity(
     await user.save();
 
     return createdCommunity;
-  } catch (error) {
+  } catch (error: any) {
     // Handle any errors
-    console.error("Error creating community:", error);
-    throw error;
+
+    throw new Error("Error creating community:", error.message);
   }
 }
 
@@ -170,6 +170,7 @@ export async function addMemberToCommunity(
     const community = await Community.findOne({ id: communityId });
 
     if (!community) {
+      toast.error("Community not found.");
       throw new Error("Community not found");
     }
 
@@ -235,10 +236,9 @@ export async function removeUserFromCommunity(
     );
 
     return { success: true };
-  } catch (error) {
-    // Handle any errors
-    console.error("Error removing user from community:", error);
-    throw error;
+  } catch (error: any) {
+    toast.error("Error removing user from community"); // Handle any errors
+    throw new Error("Error removing user from community:", error.message);
   }
 }
 

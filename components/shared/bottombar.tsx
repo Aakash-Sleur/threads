@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import { sidebarLinks } from '@/constants';
 
 const Bottombar = () => {
+
     const pathName = usePathname();
 
     return (

@@ -20,6 +20,7 @@ const ProfileHeader = ({
     bio,
     type
 }: ProfileHeaderProps) => {
+
     return (
         <div className="flex w-full flex-col justify-start">
             <div className="flex items-center justify-between">

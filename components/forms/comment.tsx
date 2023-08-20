@@ -1,7 +1,9 @@
 'use client'
 
 import * as z from 'zod'
+import Image from 'next/image';
 import { useForm } from "react-hook-form";
+import { usePathname } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
@@ -10,18 +12,11 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
 } from "@/components/ui/form"
 import { Button } from "@/components/ui/button"
 import { Input } from '@/components//ui/input';
-
-import { usePathname } from 'next/navigation';
-
-// import { updateUser } from '@/lib/actions/user.actions';
 import { CommentValidation } from "@/lib/validations/thread";
-import Image from 'next/image';
 import { addCommentToThread } from '@/lib/actions/thread.actions';
-
 
 interface CommentProps {
     threadId: string;
@@ -36,7 +31,6 @@ const Comment = ({
 }: CommentProps) => {
 
     const pathname = usePathname()
-
 
     const form = useForm<z.infer<typeof CommentValidation>>({
         resolver: zodResolver(CommentValidation),
@@ -80,7 +74,7 @@ const Comment = ({
                                 <Input
                                     type='text'
                                     {...field}
-                                    placeholder='comment'
+                                    placeholder='Comment'
                                     className='no-focus text-light-1 outline-none'
                                 />
                             </FormControl>

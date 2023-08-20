@@ -5,12 +5,11 @@
 // Resource: https://docs.svix.com/receiving/verifying-payloads/why
 // It's a good practice to verify webhooks. Above article shows why we should do it
 
-import { Webhook, WebhookRequiredHeaders } from "svix";
 import { headers } from "next/headers";
-
-import { IncomingHttpHeaders } from "http";
-
 import { NextResponse } from "next/server";
+import { IncomingHttpHeaders } from "http";
+import { Webhook, WebhookRequiredHeaders } from "svix";
+
 import {
   addMemberToCommunity,
   createCommunity,

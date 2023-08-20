@@ -1,9 +1,10 @@
-import ThreadCard from "@/components/cards/thread-card"
-import Comment from "@/components/forms/comment";
-import { fetchThreadById } from "@/lib/actions/thread.actions";
-import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+
+import Comment from "@/components/forms/comment";
+import ThreadCard from "@/components/cards/thread-card"
+import { fetchThreadById } from "@/lib/actions/thread.actions";
+import { fetchUser } from "@/lib/actions/user.actions";
 
 const Page = async ({ params }: { params: { id: string } }) => {
     if (!params.id) return null;

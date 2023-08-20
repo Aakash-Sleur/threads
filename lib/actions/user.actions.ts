@@ -1,11 +1,12 @@
 "use server";
 
-import { FilterQuery, SortOrder } from "mongoose";
+import toast from "react-hot-toast";
 import { revalidatePath } from "next/cache";
+import { FilterQuery, SortOrder } from "mongoose";
 
-import Community from "../models/community.model";
-import Thread from "../models/thread.model";
 import User from "../models/user.model";
+import Thread from "../models/thread.model";
+import Community from "../models/community.model";
 
 import { connectToDB } from "../mongoose";
 
@@ -18,6 +19,7 @@ export async function fetchUser(userId: string) {
       model: Community,
     });
   } catch (error: any) {
+    toast.error("Failed to fetch user");
     throw new Error(`Failed to fetch user: ${error.message}`);
   }
 }
@@ -58,6 +60,7 @@ export async function updateUser({
       revalidatePath(path);
     }
   } catch (error: any) {
+    toast.error("Failed to create/update user");
     throw new Error(`Failed to create/update user: ${error.message}`);
   }
 }
@@ -88,9 +91,9 @@ export async function fetchUserPosts(userId: string) {
       ],
     });
     return threads;
-  } catch (error) {
-    console.error("Error fetching user threads:", error);
-    throw error;
+  } catch (error: any) {
+    toast.error("Error fetching user threads.");
+    throw new Error("Error fetching user threads:", error);
   }
 }
 
@@ -147,9 +150,9 @@ export async function fetchUsers({
     const isNext = totalUsersCount > skipAmount + users.length;
 
     return { users, isNext };
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    throw error;
+  } catch (error: any) {
+    toast.error("Error while fetching users.");
+    throw new Error("Error fetching users:", error);
   }
 }
 
@@ -176,8 +179,8 @@ export async function getActivity(userId: string) {
     });
 
     return replies;
-  } catch (error) {
-    console.error("Error fetching replies: ", error);
-    throw error;
+  } catch (error: any) {
+    toast.error("Error while fetching replies");
+    throw new Error("Error fetching replies: ", error);
   }
 }
