@@ -35,6 +35,43 @@ Threads web is an innovative open-source project that draws inspiration from the
 ### Profile Page
 ![Screenshot 2023-08-21 111249](https://github.com/Aakash-Sleur/threads/assets/112175038/34efff75-5cd6-4b63-bed3-22de4b1f6dba)
 
+## Live Application
+https://threads-cyan.vercel.app
 
 
+## Prerequisites
 
+NODE version 14.x
+
+
+### Clone Respository
+
+```shell
+https://github.com/Aakash-Sleur/threads.git
+```
+
+### Install
+```shell
+npm install
+```
+
+### Set Environment up
+```js
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onboarding
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+NEXT_CLERK_WEBHOOK_SECRET=
+
+MONGODB_URL=
+UPLOADTHING_SECRET=
+UPLOADTHING_APP_ID=
+```
+
+### Start the app
+```shell
+npm run dev
+```
