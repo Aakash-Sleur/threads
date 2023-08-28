@@ -76,7 +76,7 @@ const ThreadCard = ({
                                     @{author.username}
                                 </p>
                             </Link>
-                            <time dateTime={time} className="subtle-medium text-gray-1">
+                            <time dateTime={time} className="small-medium text-gray-1">
                                 · {time}
                             </time>
                         </div>

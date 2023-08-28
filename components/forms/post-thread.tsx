@@ -63,6 +63,7 @@ function PostThread({ userId }: { userId: string }) {
                                 <Textarea
                                     rows={15}
                                     {...field}
+                                    className="focus:caret-primary-500"
                                 />
                             </FormControl>
                             <FormMessage />

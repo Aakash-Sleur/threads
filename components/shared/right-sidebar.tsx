@@ -24,7 +24,7 @@ const RightSidebar = async () => {
     return (
         <section className="custom-scrollbar rightsidebar">
             <div className="flex flex-col flex-1 justify-start gap-5">
-                <h3 className="text-heading4-medium text-light-1">Suggested Communities</h3>
+                <h3 className="text-heading4-medium text-light-1">Suggested Users</h3>
                 <div className="flex flex-col gap-9 w-[320px]">
                     {suggestedUsers.users.length === 0 ? (
                         <p className="no-result">No users</p>
@@ -43,7 +43,7 @@ const RightSidebar = async () => {
                 </div>
             </div>
             <div className="flex flex-col flex-1 justify-start gap-5">
-                <h3 className="text-heading4-medium text-light-1">Suggested Users</h3>
+                <h3 className="text-heading4-medium text-light-1">Suggested Communities</h3>
                 <div className="flex flex-col gap-9 w-[320px]">
                     {SuggestedCommunities.communities.length === 0 ? (
                         <p className="no-result">No users</p>
